@@ -1,4 +1,3 @@
-
 const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const { User, Hobby } = require('./models')
@@ -7,20 +6,42 @@ const { User, Hobby } = require('./models')
 const PORT = 8080
 const url = 'mongodb://localhost:27017/hobbies'
 const options = {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 }
 
 const db = require('./config/db')(url, options)
 /************************ GRAPHQL **************************/
 const typeDefs = gql`
+	type User {
+		id: ID!
+		firstName: String
+		lastName: String
+		email: String
+	}
+
+	type Hobby {
+		id: ID!
+		name: String
+	}
+
 	type Query {
-		hello: String
+		users: [User]
 	}
 `
 
+
+const getAllUsers = async () => {
+	try {
+		return await User.find()
+	} catch (error) {
+		return Error(error.message)
+	}
+}
+
 const resolvers = {
 	Query: {
-		hello: () => 'Hello Word'
+		users: getAllUsers
 	}
 }
 
@@ -38,5 +59,3 @@ app.listen({ port: PORT }, url => {
     YOUR GQL PLAYGROUND IS RUNNING AT : http://localhost:${PORT}${server.graphqlPath}
     `)
 })
-
-

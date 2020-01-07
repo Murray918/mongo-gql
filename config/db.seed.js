@@ -1,32 +1,39 @@
-// seeds can be run like this
-// seed(User, users).then(result => console.log(result))
-// seed(Hobby, hobbies).then(result => console.log(result))
+/// you can seed like this in server.js
+
+// const { seed, users, hobbies } = require('./config/db.seed')
+
+// seed(User, users)
+// 	.then(result => console.log(result))
+// 	.catch(error => console.error(error))
+// seed(Hobby, hobbies)
+// 	.then(result => console.log(result))
+// 	.catch(error => console.error(error))
 
 
 const users = [
 	{
-		first_name: 'Melanie',
-		last_name: 'McGuire',
+		firstName: 'Melanie',
+		lastName: 'McGuire',
 		email: 'party@party.com'
 	},
 	{
-		first_name: 'Andrew',
-		last_name: 'Murray',
+		firstName: 'Andrew',
+		lastName: 'Murray',
 		email: 'party@party.com'
 	},
 	{
-		first_name: 'Caleb',
-		last_name: 'Holland',
+		firstName: 'Caleb',
+		lastName: 'Holland',
 		email: 'party@party.com'
 	},
 	{
-		first_name: 'Daniel',
-		last_name: 'St. Clair',
+		firstName: 'Daniel',
+		lastName: 'St. Clair',
 		email: 'party@party.com'
 	},
 	{
-		first_name: 'Devin',
-		last_name: 'Hanley',
+		firstName: 'Devin',
+		lastName: 'Hanley',
 		email: 'party@party.com'
 	}
 ]
