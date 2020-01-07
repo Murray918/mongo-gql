@@ -1,6 +1,7 @@
 const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
-const {User, Hobby} = require('./models')
+const { User, Hobby } = require('./models')
+const db = require('./config/db')(url, options)
 
 /*****************Connection Options*********************/
 const PORT = 8080
@@ -25,8 +26,6 @@ const resolvers = {
 /****************** SET UP THE SERVER BELOW *****************/
 const server = new ApolloServer({ typeDefs, resolvers })
 
-//instantiate mongo and listen
-const db = require('./config/db')(url, options)
 
 //instantiate express
 let app = express()
@@ -39,4 +38,3 @@ app.listen({ port: PORT }, url => {
     YOUR GQL PLAYGROUND IS RUNNING AT : http://localhost:${PORT}${server.graphqlPath}
     `)
 })
-
