@@ -18,6 +18,7 @@ const typeDefs = gql`
 		firstName: String
 		lastName: String
 		email: String
+		hobbies: [Hobby]
 	}
 
 	type Hobby {
@@ -27,7 +28,22 @@ const typeDefs = gql`
 
 	type Query {
 		users: [User]
-        hobbies: [Hobby]
+		hobbies: [Hobby]
+	}
+
+	input CreateUserHobby {
+		userId: ID!
+		hobbyId: ID!
+	}
+
+	type CreateUserHobbyPayload {
+		user: User
+		success: Boolean!
+		error: String
+	}
+
+	type Mutation {
+		createUserHobby(input: CreateUserHobby): CreateUserHobbyPayload
 	}
 `
 
@@ -47,11 +63,44 @@ const getAllHobbies = async () => {
 	}
 }
 
-const resolvers = {
-	Query: {
-        users: getAllUsers,
-        hobbies: getAllHobbies
+const createUserHobby = async (_, { input }) => {
+	try {
+		const { userId, hobbyId } = input
+		console.log(1111, input)
+
+		const oldUser = await User.findById(userId)
+		console.log(2222, oldUser)
+		const hobby = await Hobby.findById(hobbyId)
+		console.log(3333, hobby)
+		oldUser.userHobbies.push(hobby)
+		const user = await oldUser.save()
+        console.log(user)
+		return {
+			user: user,
+			success: true,
+			error: null
+		}
+	} catch (error) {
+		return {
+			user: null,
+			success: false,
+			error: error.message
+		}
 	}
+}
+
+const Mutation = {
+	createUserHobby
+}
+
+const Query = {
+	users: getAllUsers,
+	hobbies: getAllHobbies
+}
+
+const resolvers = {
+	Query,
+	Mutation
 }
 
 /****************** SET UP THE SERVER BELOW *****************/
