@@ -1,5 +1,6 @@
 const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
+const {User, Hobby} = require('./models')
 
 /*****************Connection Options*********************/
 const PORT = 8080
@@ -38,3 +39,4 @@ app.listen({ port: PORT }, url => {
     YOUR GQL PLAYGROUND IS RUNNING AT : http://localhost:${PORT}${server.graphqlPath}
     `)
 })
+
