@@ -27,21 +27,30 @@ const typeDefs = gql`
 
 	type Query {
 		users: [User]
+        hobbies: [Hobby]
 	}
 `
-
 
 const getAllUsers = async () => {
 	try {
 		return await User.find()
 	} catch (error) {
-		return Error(error.message)
+		return error.message
+	}
+}
+
+const getAllHobbies = async () => {
+	try {
+		return await Hobby.find()
+	} catch (error) {
+		return error.message
 	}
 }
 
 const resolvers = {
 	Query: {
-		users: getAllUsers
+        users: getAllUsers,
+        hobbies: getAllHobbies
 	}
 }
 
